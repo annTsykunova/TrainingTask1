@@ -2,10 +2,7 @@ package com.epam.training.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
@@ -14,12 +11,12 @@ import java.util.Calendar;
 
 @RestController
 @RequestMapping("/data")
-public class RequestController {
+public class DataController {
 
     private static Logger logger = LogManager.getLogger();
 
     @RequestMapping(value = "/request", method = RequestMethod.GET)
-    public String getDataRequest(@RequestParam(value = "id") Integer id) {
+    public String getDataRequest(@RequestParam(value = "id") Long id) {
         logger.info(" Request param:" + id);
         return "Request param:" + id;
     }
@@ -31,9 +28,9 @@ public class RequestController {
         return test;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String postData() {
-        String data = Calendar.getInstance().getCalendarType() + "it's answer on POST!";
+    @RequestMapping(value = "/{id:[\\d]+}",method = RequestMethod.POST)
+    public String postData(@PathVariable(value = "id") Long id) {
+        String data = Calendar.getInstance().getCalendarType() + "it's answer on POST with id = " + id;
         logger.info("Post:" + data);
         return data;
     }

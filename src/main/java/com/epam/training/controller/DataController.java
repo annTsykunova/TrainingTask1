@@ -16,7 +16,7 @@ public class DataController {
     private static Logger logger = LogManager.getLogger();
 
     @RequestMapping(value = "/request", method = RequestMethod.GET)
-    public String getDataRequest(@RequestParam(value = "id") Long id) {
+    public String getDataRequest(@RequestParam("id") Long id) {
         logger.info(" Request param:" + id);
         return "Request param:" + id;
     }
@@ -28,8 +28,8 @@ public class DataController {
         return test;
     }
 
-    @RequestMapping(value = "/{id:[\\d]+}",method = RequestMethod.POST)
-    public String postData(@PathVariable(value = "id") Long id) {
+    @RequestMapping(value = "/user/{id:[\\d]+}",method = RequestMethod.POST)
+    public String postData(@PathVariable("id") Long id) {
         String data = Calendar.getInstance().getCalendarType() + "it's answer on POST with id = " + id;
         logger.info("Post:" + data);
         return data;
